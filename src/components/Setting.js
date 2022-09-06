@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux/es/exports';
+import { optionsActions } from '../reducers/optionsSlice';
 
 const Setting = ({ settingName, setSetting, settingTitle }) => {
+  const dispatch = useDispatch();
+
   const onSettingChange = (e) => {
     setSetting(e.target.checked);
   };
@@ -13,7 +17,10 @@ const Setting = ({ settingName, setSetting, settingTitle }) => {
           className='settingCheckbox'
           type={'checkbox'}
           id={`${settingName}`}
-          onChange={(e) => onSettingChange(e)}
+          onChange={(e) => {
+            onSettingChange(e);
+            dispatch(optionsActions[settingName]())
+          }}
         />
         <div className='settingView'></div>
         <div className='slider'></div>

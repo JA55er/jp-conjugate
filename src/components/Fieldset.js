@@ -8,12 +8,12 @@ const Fieldset = ({ setOptions }) => {
   const [negative, setNegative] = useState(false);
 
   useEffect(() => {
-    if (polite == false && past == false && te == false && negative == false) {
-      setOptions({ polite: true, past: true, te: true, negative: true });
+    if (past == false && polite == false &&  negative == false) {
+      setOptions({ past: true, polite: true, negative: true });
     } else {
-      setOptions({ polite, past, te, negative });
+      setOptions({ past, polite, negative });
     }
-  }, [polite, past, te, negative]);
+  }, [polite, past, negative]);
 
   return (
     <fieldset className='fieldset'>

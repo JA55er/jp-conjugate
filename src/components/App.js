@@ -45,7 +45,8 @@ const App = () => {
 
   useEffect(() => {
     if (taskWord?.verbClass == 1) {
-      console.log(verbs.conjugate(taskWord?.hiraganaReading));
+      // console.log(taskWord)
+      // console.log(verbs.conjugate(taskWord?.hiraganaReading));
       setConjArr(verbs.conjugate(taskWord?.hiraganaReading));
     } else if (taskWord?.verbClass == 2) {
       setConjArr(verbs.conjugate(taskWord?.hiraganaReading, 'v1'));
@@ -54,7 +55,7 @@ const App = () => {
 
   useEffect(() => {
     if (userAnswer && resultPhase) {
-      if (userAnswer == correctAnswer.form) {
+      if (userAnswer == correctAnswer?.form) {
         setResult('#00FF00');
       } else {
         setResult('#ED4337');
@@ -62,15 +63,18 @@ const App = () => {
     } else {
       setResult('#fff')
     }
-  });
+  }, [resultPhase]);
 
   useEffect(() => {
+    // console.log(conjArr)
     if (Object.keys(conjArr).length) {
+      // console.log(formToGet)
       setCorrectAnswer(conjArr.find((o) => o.name == formToGet));
     }
-  }, [conjArr]);
+  }, [conjArr, formToGet]);
 
-  console.log(correctAnswer?.form);
+  // console.log(correctAnswer?.form);
+  // console.log('--------------')
 
   return (
     <>
@@ -86,6 +90,7 @@ const App = () => {
         options={options}
         setFormToGet={setFormToGet}
         taskWord={taskWord}
+        formToGet={formToGet}
       />
       <AnswerInput
         setTaskWord={setTaskWord}

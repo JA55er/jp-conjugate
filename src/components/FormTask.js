@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import randomSetting from '../util/randomSetting';
 
-const FormTask = ({ options, setFormToGet, taskWord }) => {
+const FormTask = ({ options, setFormToGet, taskWord, formToGet }) => {
   const [conjugateForm, setConjugateForm] = useState('');
 
   let politeRandom;
@@ -47,15 +48,21 @@ const FormTask = ({ options, setFormToGet, taskWord }) => {
   }
 
   useEffect(() => {
-    console.log(past, polite, negative);
-    setConjugateForm(past + polite + negative);
+    // console.log(past, polite, negative);
+    const e = (randomSetting(options))
+    // console.log(e)
+    // setConjugateForm(past + polite + negative);
+    // console.log(e)
+    setFormToGet(e)
+    // setConjugateForm(e)
   }, [taskWord, options]);
 
-  useEffect(() => {
-    setFormToGet(conjugateForm.toLowerCase().slice(0, -1));
-  }, [conjugateForm]);
+  // useEffect(() => {
+  //   console.log('conjugateForm: ', conjugateForm)
+  //   setFormToGet(conjugateForm.toLowerCase().slice(0, -1));
+  // }, [conjugateForm]);
 
-  return <div className='task'>Conjugate to {conjugateForm}form</div>;
+  return <div className='task'>Conjugate to {formToGet} form</div>;
 };
 
 export default FormTask;
