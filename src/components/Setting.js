@@ -5,9 +5,9 @@ import { optionsActions } from '../reducers/optionsSlice';
 const Setting = ({ settingName, setSetting, settingTitle }) => {
   const dispatch = useDispatch();
 
-  const onSettingChange = (e) => {
-    setSetting(e.target.checked);
-  };
+  // const onSettingChange = (e) => {
+  //   setSetting(e.target.checked);
+  // };
 
   return (
     <li>
@@ -18,8 +18,9 @@ const Setting = ({ settingName, setSetting, settingTitle }) => {
           type={'checkbox'}
           id={`${settingName}`}
           onChange={(e) => {
-            onSettingChange(e);
-            dispatch(optionsActions[settingName]())
+            // onSettingChange(e);
+            // dispatch(optionsActions[settingName]())
+            dispatch(optionsActions.setting({option: settingName, value: e.target.checked}))
           }}
         />
         <div className='settingView'></div>

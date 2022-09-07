@@ -4,20 +4,20 @@ import { incremented, decremented, incrementByAmount } from '../reducers/counter
 import { optionsActions } from '../reducers/optionsSlice';
 
 const Header = ({ name }) => {
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
+  // const count = useSelector((state) => state.counter.value);
+  // const dispatch = useDispatch();
 
-  const po = 'polite'
+  // const po = 'polite'
 
-  useEffect(() => {
-    // console.log(count);
-  }, [count]);
+  // useEffect(() => {
+  //   // console.log(count);
+  // }, [count]);
 
   return (
     <div className='headerContainer'>
       <div className='header'>{name}</div>
-      <div>{count}</div>
-      <button
+      {/* <div>{count}</div> */}
+      {/* <button
         onClick={() => {
           dispatch(optionsActions[po]());
           console.log('clicked');
@@ -26,7 +26,7 @@ const Header = ({ name }) => {
         Increment!
       </button>
       <button onClick={() => dispatch(optionsActions.negative())}>Decrement!</button>
-      <button onClick={() => dispatch(incrementByAmount({value: 5, something: 'hello'}))}>+ 5!</button>
+      <button onClick={() => dispatch(incrementByAmount({value: 5, something: 'hello'}))}>+ 5!</button> */}
     </div>
   );
 };

@@ -7,46 +7,33 @@ import GivenWordForm from './GivenWordForm';
 import Score from './Score';
 import Fieldset from './Fieldset';
 
+import { correctAnswerReducer, resultReducer, taskWordReducer } from '../reducers/taskSlice';
 import getVerb from '../api/getVerb';
 
 import 'typeface-roboto';
 import '../styles/index.css';
 
 import verbs from 'jp-conjugation';
+import { useDispatch, useSelector } from 'react-redux';
 
 const App = () => {
-  const [taskWord, setTaskWord] = useState({});
-
-  const [formToGet, setFormToGet] = useState('');
+  const dispatch = useDispatch();
+  const {correctAnswer, result, resultPhase, taskForm, taskWord} = useSelector((state) => state.answer);
 
   const [conjArr, setConjArr] = useState({});
 
-  const [resultPhase, setResultPhase] = useState(false);
-
-  const [options, setOptions] = useState({
-    polite: 1,
-    past: 1,
-    te: 1,
-    negative: 1,
-  });
-
-  const [result, setResult] = useState('#F3F3F3');
-
   const [userAnswer, setUserAnswer] = useState('');
-
-  const [correctAnswer, setCorrectAnswer] = useState('');
 
   useEffect(() => {
     const getWord = async () => {
-      setTaskWord(await getVerb());
+      const verb = await getVerb()
+      dispatch(taskWordReducer(verb))
     };
     getWord();
   }, []);
 
   useEffect(() => {
     if (taskWord?.verbClass == 1) {
-      // console.log(taskWord)
-      // console.log(verbs.conjugate(taskWord?.hiraganaReading));
       setConjArr(verbs.conjugate(taskWord?.hiraganaReading));
     } else if (taskWord?.verbClass == 2) {
       setConjArr(verbs.conjugate(taskWord?.hiraganaReading, 'v1'));
@@ -54,27 +41,26 @@ const App = () => {
   }, [taskWord]);
 
   useEffect(() => {
+    if (Object.keys(conjArr).length) {
+      dispatch(
+        correctAnswerReducer(conjArr.find((o) => o.name == taskForm))
+      );
+    }
+  }, [conjArr, taskForm]);
+
+  useEffect(() => {
     if (userAnswer && resultPhase) {
-      if (userAnswer == correctAnswer?.form) {
-        setResult('#00FF00');
+      if (userAnswer == correctAnswer) {
+        dispatch(resultReducer('#00FF00'))
       } else {
-        setResult('#ED4337');
+        dispatch(resultReducer('#ED4337'))
       }
     } else {
-      setResult('#fff')
+      dispatch(resultReducer('#fff'))
     }
   }, [resultPhase]);
 
-  useEffect(() => {
-    // console.log(conjArr)
-    if (Object.keys(conjArr).length) {
-      // console.log(formToGet)
-      setCorrectAnswer(conjArr.find((o) => o.name == formToGet));
-    }
-  }, [conjArr, formToGet]);
-
-  // console.log(correctAnswer?.form);
-  // console.log('--------------')
+  console.log(correctAnswer);
 
   return (
     <>
@@ -87,25 +73,21 @@ const App = () => {
       />
       <FormTask
         task={'Past Form'}
-        options={options}
-        setFormToGet={setFormToGet}
         taskWord={taskWord}
-        formToGet={formToGet}
+        taskForm={taskForm}
       />
       <AnswerInput
-        setTaskWord={setTaskWord}
         setUserAnswer={setUserAnswer}
-        setResultPhase={setResultPhase}
         resultPhase={resultPhase}
         result={result}
       />
       <GivenWordForm taskWord={taskWord} />
       <Score
         userAnswer={userAnswer}
-        correctAnswer={correctAnswer?.form}
+        correctAnswer={correctAnswer}
         taskWord={taskWord}
       />
-      <Fieldset setOptions={setOptions} />
+      <Fieldset />
     </>
   );
 };

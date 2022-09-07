@@ -1,12 +1,20 @@
 const randomSetting = (options) => {
   let count = 0;
-  // console.log(options);
+  let sOptions = {}
   let mappedProduct = Object.entries(options).map(([key, value]) => {
-    if (key == 'past' && options[key] == false) {
-      console.log(key, options[key])
+    if (Object.values(options).every((value) => !value)) {
+      Object.keys(options).forEach(key => {
+        sOptions[key] = true;
+      });
+    } else {
+      sOptions = options
+    }
+
+    if (key === 'past' && !sOptions[key]) {
+      console.log(key, sOptions[key]);
       return { [key]: 'present' };
     }
-    if (options[key] == false) {
+    if (!sOptions[key]) {
       return { [key]: '' };
     }
     const random = Math.round(Math.random());
@@ -17,7 +25,7 @@ const randomSetting = (options) => {
         // ...value,
       };
     } else {
-      if (key == 'past' && options[key]) {
+      if (key === 'past' && sOptions[key]) {
         return { [key]: 'present' };
       } else {
         return { [key]: '' };
@@ -31,7 +39,7 @@ const randomSetting = (options) => {
   let str = '';
   mappedProduct.map((ele) => {
     const eleValues = Object.values(ele);
-    str = str.concat(` ${eleValues}`).trim();
+    return str = str.concat(` ${eleValues}`).trim();
   });
   return str;
 };
