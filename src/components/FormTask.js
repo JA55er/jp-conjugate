@@ -10,9 +10,13 @@ const FormTask = ({ taskWord, taskForm }) => {
   const options = useSelector(state => state.options)
 
   useEffect(() => {
+    changeForm()
+  }, [taskWord, options]);
+
+  const changeForm = () => {
     const form = (randomSetting(options))
     dispatch(taskFormReducer(form))
-  }, [taskWord, options]);
+  }
 
   return <div className='task'>Conjugate to {taskForm} form</div>;
 };

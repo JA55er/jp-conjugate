@@ -1,29 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ratio, correct, incorrect } from '../reducers/scoreSlice';
+import { scoreCount } from '../reducers/scoreSlice';
 
-const Score = ({ correctAnswer, userAnswer, taskWord }) => {
-
-  const dispatch = useDispatch()
-  const {correctAnswers, incorrectAnswers, answerRatio} = useSelector(state => state.score)
-
-  useEffect(() => {
-    if (userAnswer) {
-      if (correctAnswer == userAnswer) {
-        dispatch(ratio())
-        dispatch(correct())
-
-      } else {
-        dispatch(incorrect())
-      }
-    }
-  }, [taskWord]);
+const Score = ({ correctAnswer, userAnswer, resultPhase }) => {
+  const dispatch = useDispatch();
+  const { correctAnswers, incorrectAnswers, answerRatio } = useSelector(
+    (state) => state.score
+  );
 
   useEffect(() => {
-    if (userAnswer) {
-      dispatch(ratio())
+    if (resultPhase) {
+      dispatch(scoreCount(correctAnswer === userAnswer));
     }
-  }, [correctAnswers, incorrectAnswers]);
+  }, [resultPhase]);
 
   return (
     <div className='score'>

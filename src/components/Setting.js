@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux/es/exports';
+import React from 'react';
+import { useDispatch } from 'react-redux/es/exports';
 import { optionsActions } from '../reducers/optionsSlice';
 
-const Setting = ({ settingName, setSetting, settingTitle }) => {
+const Setting = ({ settingName, settingTitle }) => {
   const dispatch = useDispatch();
-
-  // const onSettingChange = (e) => {
-  //   setSetting(e.target.checked);
-  // };
 
   return (
     <li>
@@ -18,8 +14,6 @@ const Setting = ({ settingName, setSetting, settingTitle }) => {
           type={'checkbox'}
           id={`${settingName}`}
           onChange={(e) => {
-            // onSettingChange(e);
-            // dispatch(optionsActions[settingName]())
             dispatch(optionsActions.setting({option: settingName, value: e.target.checked}))
           }}
         />

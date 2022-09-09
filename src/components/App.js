@@ -7,58 +7,64 @@ import GivenWordForm from './GivenWordForm';
 import Score from './Score';
 import Fieldset from './Fieldset';
 
-import { correctAnswerReducer, resultReducer, taskWordReducer } from '../reducers/taskSlice';
+import {
+  correctAnswerReducer,
+  resultReducer,
+  taskWordReducer,
+} from '../reducers/taskSlice';
 import getVerb from '../api/getVerb';
-
 import 'typeface-roboto';
 import '../styles/index.css';
-
 import verbs from 'jp-conjugation';
 import { useDispatch, useSelector } from 'react-redux';
 
 const App = () => {
   const dispatch = useDispatch();
-  const {correctAnswer, result, resultPhase, taskForm, taskWord} = useSelector((state) => state.answer);
-
-  const [conjArr, setConjArr] = useState({});
+  const { correctAnswer, result, resultPhase, taskForm, taskWord } =
+    useSelector((state) => state.answer);
 
   const [userAnswer, setUserAnswer] = useState('');
 
   useEffect(() => {
-    const getWord = async () => {
-      const verb = await getVerb()
-      dispatch(taskWordReducer(verb))
-    };
-    getWord();
+    loadWord();
   }, []);
 
   useEffect(() => {
-    if (taskWord?.verbClass == 1) {
-      setConjArr(verbs.conjugate(taskWord?.hiraganaReading));
-    } else if (taskWord?.verbClass == 2) {
-      setConjArr(verbs.conjugate(taskWord?.hiraganaReading, 'v1'));
-    }
-  }, [taskWord]);
-
+    getCorrectAnswer();
+  }, [taskWord, taskForm]);
+  
   useEffect(() => {
+    resultColor()
+  }, [resultPhase]);
+
+  const loadWord = async () => {
+    const verb = await getVerb();
+    dispatch(taskWordReducer(verb));
+  };
+
+  const getCorrectAnswer = () => {
+    let conjArr = [];
+    if (taskWord?.verbClass === 1) {
+      conjArr = verbs.conjugate(taskWord?.hiraganaReading);
+    } else if (taskWord?.verbClass === 2) {
+      conjArr = verbs.conjugate(taskWord?.hiraganaReading, 'v1');
+    }
     if (Object.keys(conjArr).length) {
-      dispatch(
-        correctAnswerReducer(conjArr.find((o) => o.name == taskForm))
-      );
+      dispatch(correctAnswerReducer(conjArr.find((o) => o.name === taskForm)));
     }
-  }, [conjArr, taskForm]);
+  };
 
-  useEffect(() => {
+  const resultColor = () => {
     if (userAnswer && resultPhase) {
-      if (userAnswer == correctAnswer) {
-        dispatch(resultReducer('#00FF00'))
+      if (userAnswer === correctAnswer) {
+        dispatch(resultReducer('#00FF00'));
       } else {
-        dispatch(resultReducer('#ED4337'))
+        dispatch(resultReducer('#ED4337'));
       }
     } else {
-      dispatch(resultReducer('#fff'))
+      dispatch(resultReducer('#fff'));
     }
-  }, [resultPhase]);
+  }
 
   console.log(correctAnswer);
 
@@ -71,11 +77,7 @@ const App = () => {
         correctAnswer={correctAnswer}
         result={result}
       />
-      <FormTask
-        task={'Past Form'}
-        taskWord={taskWord}
-        taskForm={taskForm}
-      />
+      <FormTask task={'Past Form'} taskWord={taskWord} taskForm={taskForm} />
       <AnswerInput
         setUserAnswer={setUserAnswer}
         resultPhase={resultPhase}
@@ -86,6 +88,7 @@ const App = () => {
         userAnswer={userAnswer}
         correctAnswer={correctAnswer}
         taskWord={taskWord}
+        resultPhase={resultPhase}
       />
       <Fieldset />
     </>

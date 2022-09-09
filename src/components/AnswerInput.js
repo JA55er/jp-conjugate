@@ -5,7 +5,7 @@ import * as wanakana from 'wanakana';
 import { useDispatch, useSelector } from 'react-redux';
 import { resultPhaseReducer, taskWordReducer } from '../reducers/taskSlice';
 
-const AnswerInput = ({ setTaskWord, setUserAnswer, result }) => {
+const AnswerInput = ({ setUserAnswer, result }) => {
   const dispatch = useDispatch();
   const resultPhase = useSelector((state) => state.answer.resultPhase);
 
@@ -14,15 +14,9 @@ const AnswerInput = ({ setTaskWord, setUserAnswer, result }) => {
   const [loadTaskWord, setLoadTaskWord] = useState({});
 
   const inputRef = useRef(null);
-
-  // useEffect(() => {
-  //   var input = document.getElementById('answer-input');
-  //   wanakana.bind(input);
-  // }, []);
-
+  
   useEffect(() => {
-    const wana = wanakana.toKana(answer);
-    console.log(wana)
+    const wana = wanakana.toKana(answer, { IMEMode: true });
     if (wana !== answer) {
       setAnswer(wana);
     }
@@ -34,30 +28,20 @@ const AnswerInput = ({ setTaskWord, setUserAnswer, result }) => {
     }, 100);
   };
 
-  const onInputChange = async (e) => {
-    console.log(e.target);
-    setAnswer(e.target.value);
-    console.log(answer);
-  };
-  // const onInputSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log(e.target);
-  // };
+  const onInputChange = (e) => {
+    setAnswer(e.target.value)
+  }
+
   const onInputSubmit = async (e) => {
-    // const a = e.target.value
-    // console.log(e.target)
-    // console.log(a)
-    console.log(answer)
     e.preventDefault();
     if (!answer) {
       window.alert('input answer!');
     } else {
       if (!resultPhase) {
         setUserAnswer(answer);
-        console.log(answer)
         dispatch(resultPhaseReducer(true));
         let newVerb = await getVerb();
-        if (newVerb == loadTaskWord) {
+        if (newVerb === loadTaskWord) {
           newVerb = await getVerb();
         }
         setLoadTaskWord(newVerb);

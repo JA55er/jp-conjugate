@@ -8,19 +8,17 @@ export const scoreSlice = createSlice({
     answerRatio: 0,
   },
   reducers: {
-    correct: (state) => {
-      state.correctAnswers = state.correctAnswers + 1;
-    },
-    incorrect: (state) => {
-      state.incorrectAnswers++;
-    },
-    ratio: (state) => {
-      console.log(state)
+    scoreCount: (state, action) => {
+      if (action.payload) {
+        state.correctAnswers++
+      } else {
+        state.incorrectAnswers++
+      }
       state.answerRatio = Math.round((state.correctAnswers / (state.correctAnswers + state.incorrectAnswers)) * 100);
-    },
+    }
   },
 });
 
-export const {correct, incorrect, ratio} = scoreSlice.actions;
+export const {scoreCount} = scoreSlice.actions;
 
 export default scoreSlice.reducer;
