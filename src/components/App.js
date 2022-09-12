@@ -7,21 +7,17 @@ import GivenWordForm from './GivenWordForm';
 import Score from './Score';
 import Fieldset from './Fieldset';
 
-import {
-  correctAnswerReducer,
-  resultReducer,
-  taskWordReducer,
-} from '../reducers/taskSlice';
+import { resultReducer, taskWordReducer } from '../reducers/taskSlice';
 import getVerb from '../api/getVerb';
 import 'typeface-roboto';
 import '../styles/index.css';
-import verbs from 'jp-conjugation';
 import { useDispatch, useSelector } from 'react-redux';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { correctAnswer, result, resultPhase, taskForm, taskWord } =
-    useSelector((state) => state.answer);
+  const { correctAnswer, resultPhase } = useSelector(
+    (state) => state.answer
+  );
 
   const [userAnswer, setUserAnswer] = useState('');
 
@@ -30,28 +26,12 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    getCorrectAnswer();
-  }, [taskWord, taskForm]);
-  
-  useEffect(() => {
-    resultColor()
+    resultColor();
   }, [resultPhase]);
 
   const loadWord = async () => {
     const verb = await getVerb();
     dispatch(taskWordReducer(verb));
-  };
-
-  const getCorrectAnswer = () => {
-    let conjArr = [];
-    if (taskWord?.verbClass === 1) {
-      conjArr = verbs.conjugate(taskWord?.hiraganaReading);
-    } else if (taskWord?.verbClass === 2) {
-      conjArr = verbs.conjugate(taskWord?.hiraganaReading, 'v1');
-    }
-    if (Object.keys(conjArr).length) {
-      dispatch(correctAnswerReducer(conjArr.find((o) => o.name === taskForm)));
-    }
   };
 
   const resultColor = () => {
@@ -64,7 +44,7 @@ const App = () => {
     } else {
       dispatch(resultReducer('#fff'));
     }
-  }
+  };
 
   console.log(correctAnswer);
 
@@ -72,22 +52,15 @@ const App = () => {
     <>
       <Header name={'Verb Conjugation'} />
       <WordToConjugate
-        taskWord={taskWord}
         resultPhase={resultPhase}
         correctAnswer={correctAnswer}
-        result={result}
       />
-      <FormTask task={'Past Form'} taskWord={taskWord} taskForm={taskForm} />
-      <AnswerInput
-        setUserAnswer={setUserAnswer}
-        resultPhase={resultPhase}
-        result={result}
-      />
-      <GivenWordForm taskWord={taskWord} />
+      <FormTask />
+      <AnswerInput setUserAnswer={setUserAnswer} resultPhase={resultPhase} />
+      <GivenWordForm />
       <Score
         userAnswer={userAnswer}
         correctAnswer={correctAnswer}
-        taskWord={taskWord}
         resultPhase={resultPhase}
       />
       <Fieldset />

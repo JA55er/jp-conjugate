@@ -11,7 +11,7 @@ export const taskSlice = createSlice({
   },
   reducers: {
     correctAnswerReducer: (state, action) => {
-      state.correctAnswer = action.payload.form;
+      state.correctAnswer = action.payload;
     },
     resultPhaseReducer: (state, action) => {
       state.resultPhase = action.payload;

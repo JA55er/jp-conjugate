@@ -5,16 +5,16 @@ import * as wanakana from 'wanakana';
 import { useDispatch, useSelector } from 'react-redux';
 import { resultPhaseReducer, taskWordReducer } from '../reducers/taskSlice';
 
-const AnswerInput = ({ setUserAnswer, result }) => {
+const AnswerInput = ({ setUserAnswer}) => {
   const dispatch = useDispatch();
-  const resultPhase = useSelector((state) => state.answer.resultPhase);
+  const {resultPhase, result} = useSelector((state) => state.answer);
 
   const [answer, setAnswer] = useState('');
 
   const [loadTaskWord, setLoadTaskWord] = useState({});
 
   const inputRef = useRef(null);
-  
+
   useEffect(() => {
     const wana = wanakana.toKana(answer, { IMEMode: true });
     if (wana !== answer) {
@@ -29,8 +29,8 @@ const AnswerInput = ({ setUserAnswer, result }) => {
   };
 
   const onInputChange = (e) => {
-    setAnswer(e.target.value)
-  }
+    setAnswer(e.target.value);
+  };
 
   const onInputSubmit = async (e) => {
     e.preventDefault();
@@ -56,7 +56,7 @@ const AnswerInput = ({ setUserAnswer, result }) => {
   return (
     <form className='inputForm' onSubmit={(e) => onInputSubmit(e)}>
       <input
-        type="text"
+        type='text'
         style={{ backgroundColor: result }}
         id='answer-input'
         ref={inputRef}
