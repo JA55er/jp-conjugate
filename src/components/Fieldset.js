@@ -15,14 +15,25 @@ const Fieldset = () => {
           settingName={'past'}
           settingTitle={'Past Form'}
         />
-        {/* <Setting
-          settingName={'te'}
+        <Setting
+          settingName={'て'}
           settingTitle={'て Form'}
-          setSetting={setTe}
-        /> */}
+        />
         <Setting
           settingName={'negative'}
           settingTitle={'Negative Form'}
+        />
+        <Setting
+          settingName={'passive'}
+          settingTitle={'Passive Form'}
+        />
+        <Setting
+          settingName={'causative'}
+          settingTitle={'Causative Form'}
+        />
+        <Setting
+          settingName={'desire'}
+          settingTitle={'Desire Form'}
         />
         {/* <Setting
           settingName={'PotentialForm'}

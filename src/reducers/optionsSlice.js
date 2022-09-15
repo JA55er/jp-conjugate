@@ -6,6 +6,10 @@ export const optionsSlice = createSlice({
     past: false,
     polite: false,
     negative: false,
+    causative: false,
+    passive: false,
+    desire: false,
+    te: false
   },
   reducers: {
     setting: (state, action) => {

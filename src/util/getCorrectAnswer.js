@@ -9,7 +9,11 @@ export const getCorrectAnswer = (options, taskWord) => {
     conjArr = verbs.conjugate(taskWord?.hiraganaReading, 'v1');
   }
 
+  console.log(options)
+
   const randomForm = randomSetting(options).split(' ');
+
+  console.log(randomForm)
 
   const allForms = [];
 
@@ -20,9 +24,17 @@ export const getCorrectAnswer = (options, taskWord) => {
       (allForms[i] = { name: value.name.split(' '), form: value.form })
   );
   allForms.forEach((group) => {
-    const index = group.name.indexOf('present');
-    if (index > -1) {
-      group.name.splice(index, 1);
+    const present = group.name.indexOf('present');
+    if (present > -1) {
+      group.name.splice(present, 1);
+    }
+    const form = group.name.indexOf('form');
+    if (form > -1) {
+      group.name.splice(form, 1);
+    }
+    const te = group.name.indexOf('te');
+    if (te > -1) {
+      group.name[te] = 'て'
     }
   });
 
@@ -57,10 +69,9 @@ const randomSetting = (options) => {
       sOptions = options;
     }
 
-    if (key === 'past' && !sOptions[key]) {
-      console.log(key, sOptions[key]);
-      return { [key]: 'present' };
-    }
+    // if (key === 'past' && !sOptions[key]) {
+    //   return { [key]: 'present' };
+    // }
     if (!sOptions[key]) {
       return { [key]: '' };
     }
@@ -72,12 +83,12 @@ const randomSetting = (options) => {
         // ...value,
       };
     } else {
-      if (key === 'past' && sOptions[key]) {
-        return { [key]: 'present' };
-      } else {
+      // if (key === 'past' && sOptions[key]) {
+      //   return { [key]: 'present' };
+      // } else {
         return { [key]: '' };
       }
-    }
+    // }
   });
 
   if (!count) {
