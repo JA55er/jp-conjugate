@@ -14,10 +14,14 @@ const FormTask = () => {
     if (taskWord) {
       changeForm();
     }
-  }, [taskWord, options]);
+  }, [taskWord, options]); // eslint-disable-line
 
   const changeForm = () => {
-    const {form, name} = getCorrectAnswer(options, taskWord)
+    console.log(taskWord)
+    const { form, name } = getCorrectAnswer(options, taskWord);
+    getCorrectAnswer(options, {...taskWord, hiraganaReading: 'はなす', verbClass: 1});
+    getCorrectAnswer(options, {...taskWord, hiraganaReading: 'たべる', verbClass: 2});
+    
     dispatch(taskFormReducer(name));
     dispatch(correctAnswerReducer(form));
   };

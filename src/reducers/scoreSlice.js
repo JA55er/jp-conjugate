@@ -10,15 +10,19 @@ export const scoreSlice = createSlice({
   reducers: {
     scoreCount: (state, action) => {
       if (action.payload) {
-        state.correctAnswers++
+        state.correctAnswers++;
       } else {
-        state.incorrectAnswers++
+        state.incorrectAnswers++;
       }
-      state.answerRatio = Math.round((state.correctAnswers / (state.correctAnswers + state.incorrectAnswers)) * 100);
-    }
+      state.answerRatio = Math.round(
+        (state.correctAnswers /
+          (state.correctAnswers + state.incorrectAnswers)) *
+          100
+      );
+    },
   },
 });
 
-export const {scoreCount} = scoreSlice.actions;
+export const { scoreCount } = scoreSlice.actions;
 
 export default scoreSlice.reducer;

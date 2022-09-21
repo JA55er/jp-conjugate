@@ -14,7 +14,12 @@ const Setting = ({ settingName, settingTitle }) => {
           type={'checkbox'}
           id={`${settingName}`}
           onChange={(e) => {
-            dispatch(optionsActions.setting({option: settingName, value: e.target.checked}))
+            dispatch(
+              optionsActions.setting({
+                option: settingName,
+                value: e.target.checked,
+              })
+            );
           }}
         />
         <div className='settingView'></div>

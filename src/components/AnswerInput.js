@@ -3,11 +3,18 @@ import getVerb from '../api/getVerb';
 
 import * as wanakana from 'wanakana';
 import { useDispatch, useSelector } from 'react-redux';
-import { resultPhaseReducer, taskWordReducer } from '../reducers/taskSlice';
+import {
+  resultPhaseReducer,
+  resultReducer,
+  taskWordReducer,
+} from '../reducers/taskSlice';
+import { scoreCount } from '../reducers/scoreSlice';
 
-const AnswerInput = ({ setUserAnswer}) => {
+const AnswerInput = () => {
   const dispatch = useDispatch();
-  const {resultPhase, result} = useSelector((state) => state.answer);
+  const { resultPhase, result, correctAnswer } = useSelector(
+    (state) => state.answer
+  );
 
   const [answer, setAnswer] = useState('');
 
@@ -38,7 +45,8 @@ const AnswerInput = ({ setUserAnswer}) => {
       window.alert('input answer!');
     } else {
       if (!resultPhase) {
-        setUserAnswer(answer);
+        dispatch(scoreCount(answer === correctAnswer));
+        dispatch(resultReducer(answer === correctAnswer));
         dispatch(resultPhaseReducer(true));
         let newVerb = await getVerb();
         if (newVerb === loadTaskWord) {
@@ -57,7 +65,13 @@ const AnswerInput = ({ setUserAnswer}) => {
     <form className='inputForm' onSubmit={(e) => onInputSubmit(e)}>
       <input
         type='text'
-        style={{ backgroundColor: result }}
+        style={{
+          backgroundColor: resultPhase
+            ? result
+              ? '#00FF00'
+              : '#ED4337'
+            : '#FFF',
+        }}
         id='answer-input'
         ref={inputRef}
         className='answerInput'

@@ -5,7 +5,7 @@ export const taskSlice = createSlice({
   initialState: {
     correctAnswer: '',
     resultPhase: false,
-    result: '#F3F3F3',
+    result: '',
     taskWord: '',
     taskForm: '',
   },
@@ -20,15 +20,20 @@ export const taskSlice = createSlice({
       state.result = action.payload;
     },
     taskWordReducer: (state, action) => {
-      state.taskWord = action.payload
+      state.taskWord = action.payload;
     },
     taskFormReducer: (state, action) => {
-      state.taskForm = action.payload
-    }
+      state.taskForm = action.payload;
+    },
   },
 });
 
-export const { correctAnswerReducer, resultPhaseReducer, resultReducer, taskWordReducer, taskFormReducer } =
-  taskSlice.actions;
+export const {
+  correctAnswerReducer,
+  resultPhaseReducer,
+  resultReducer,
+  taskWordReducer,
+  taskFormReducer,
+} = taskSlice.actions;
 
 export default taskSlice.reducer;

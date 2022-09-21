@@ -9,12 +9,15 @@ export const optionsSlice = createSlice({
     causative: false,
     passive: false,
     desire: false,
-    te: false
+    て: false,
+    conditional: false,
+    volitional: false,
+    potential: false,
   },
   reducers: {
     setting: (state, action) => {
-      state[action.payload.option] = action.payload.value
-    }
+      state[action.payload.option] = action.payload.value;
+    },
   },
 });
 
