@@ -81,7 +81,7 @@ export const getCorrectAnswer = (options, taskWord) => {
 
   // console.log(sOptions)
 
-  console.log('this one: !!', allForms);
+  // console.log(allForms);
 
   allForms.forEach((group) => {
     if (group.name.every((form) => randomForm.includes(form))) {

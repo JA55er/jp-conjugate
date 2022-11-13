@@ -11,12 +11,10 @@ import { taskWordReducer } from '../reducers/taskSlice';
 import getVerb from '../api/getVerb';
 import 'typeface-roboto';
 import '../styles/index.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const App = () => {
   const dispatch = useDispatch();
-
-  const { correctAnswer } = useSelector((state) => state.answer);
 
   useEffect(() => {
     loadWord();
@@ -26,8 +24,6 @@ const App = () => {
     const verb = await getVerb();
     dispatch(taskWordReducer(verb));
   };
-
-  console.log(correctAnswer);
 
   return (
     <>

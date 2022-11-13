@@ -2,12 +2,13 @@ const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
+const config = require('./utils/config')
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_KEY);
+mongoose.connect(config.MONGODB_URI);
 
 const VerbSchema = new mongoose.Schema({
   word: String,
@@ -44,6 +45,8 @@ app.get('/', async (req, res) => {
 // });
 
 const PORT = process.env.PORT || 3001;
+
+console.log(PORT)
 
 app.listen(PORT, () => {
   console.log(`server running on port: ${PORT}`);

@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { baseURL } from '../util/config'
 
 const getVerb = async () => {
-  const response = await axios.get('http://localhost:3001/')
+  const response = await axios.get(baseURL)
   return response.data;
 }
 

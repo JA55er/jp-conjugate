@@ -1,5 +1,4 @@
 const addForm = (oldForms, taskWord) => {
-  console.log('tihs one: !!!',oldForms)
   const desire = oldForms.find((form) => form.name === 'desire');
   const past = oldForms.find((form) => form.name === 'past');
   const pastNegative = oldForms.find((form) => form.name === 'past negative');
@@ -23,7 +22,7 @@ const negativeConditionalForm = ({ form }) => {
   return { name: 'negative conditional', form: form.concat('ら')};
 };
 const potentialForm = ({ form, name }) => {
-  console.log(name)
+  // console.log(name)
   if (name === 'passive') {
     return { name: 'potential', form};
   } else {

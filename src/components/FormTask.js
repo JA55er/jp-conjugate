@@ -17,13 +17,12 @@ const FormTask = () => {
   }, [taskWord, options]); // eslint-disable-line
 
   const changeForm = () => {
-    console.log(taskWord)
+    // console.log(taskWord)
     const { form, name } = getCorrectAnswer(options, taskWord);
-    getCorrectAnswer(options, {...taskWord, hiraganaReading: 'はなす', verbClass: 1});
-    getCorrectAnswer(options, {...taskWord, hiraganaReading: 'たべる', verbClass: 2});
     
     dispatch(taskFormReducer(name));
     dispatch(correctAnswerReducer(form));
+    console.log(form)
   };
 
   return <div className='task'>Conjugate to {taskForm} form</div>;
