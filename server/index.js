@@ -16,17 +16,7 @@ const app = express();
 //   })
 // );
 
-app.use(cors());
-app.use(
-  cors({
-    origin: [
-      'https://jp-conjugation.lm.r.appspot.com',
-      'http://localhost:3000',
-    ],
-    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
-    allowedHeaders: '*',
-  })
-);
+app.use(cors())
 
 console.log('hello');
 
