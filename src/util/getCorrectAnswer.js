@@ -10,7 +10,9 @@ export const getCorrectAnswer = (options, taskWord) => {
     conjArr = verbs.conjugate(taskWord?.hiraganaReading, 'v1');
   }
 
-  // console.log(conjArr)
+  if (conjArr.length === 0 || Object.keys(taskWord).length === 0)
+    return { form: null, name: null };
+  console.log(conjArr)
 
   let selectedForms = '';
 
@@ -47,7 +49,6 @@ export const getCorrectAnswer = (options, taskWord) => {
   );
 
   allForms.forEach((group) => {
-
     //remove present
     const present = group.name.indexOf('present');
     if (present > -1) {
@@ -75,8 +76,6 @@ export const getCorrectAnswer = (options, taskWord) => {
     if (futurum > -1) {
       group.name.splice(futurum, 1);
     }
-
-
   });
 
   // console.log(sOptions)

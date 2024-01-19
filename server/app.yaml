@@ -1,3 +1,8 @@
 runtime: nodejs16
 
 service: api
+
+handlers:
+  - url: /api/.*
+    script: auto
+    secure: always

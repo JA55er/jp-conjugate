@@ -1,13 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import taskSlice from './reducers/taskSlice';
+import taskReducer from './reducers/taskSlice';
 import optionsReducer from './reducers/optionsSlice';
-import scoreSlice from './reducers/scoreSlice';
+import scoreReducer from './reducers/scoreSlice';
 
 const store = configureStore({
   reducer: {
     options: optionsReducer,
-    score: scoreSlice,
-    answer: taskSlice,
+    score: scoreReducer,
+    answer: taskReducer,
   },
 });
 

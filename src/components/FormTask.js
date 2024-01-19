@@ -10,20 +10,19 @@ const FormTask = () => {
     return [state.options, state.answer.taskWord, state.answer.taskForm];
   });
 
+  const changeForm = () => {
+    const { form, name } = getCorrectAnswer(options, taskWord);
+
+    dispatch(taskFormReducer(name));
+    dispatch(correctAnswerReducer(form));
+    console.log(form);
+  };
+
   useEffect(() => {
     if (taskWord) {
       changeForm();
     }
   }, [taskWord, options]); // eslint-disable-line
-
-  const changeForm = () => {
-    // console.log(taskWord)
-    const { form, name } = getCorrectAnswer(options, taskWord);
-    
-    dispatch(taskFormReducer(name));
-    dispatch(correctAnswerReducer(form));
-    console.log(form)
-  };
 
   return <div className='task'>Conjugate to {taskForm} form</div>;
 };

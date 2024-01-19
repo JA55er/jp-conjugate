@@ -2,10 +2,25 @@ const express = require('express');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const cors = require('cors');
-const config = require('./utils/config')
+const config = require('./utils/config');
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      'https://jp-conjugation.lm.r.appspot.com',
+      'http://localhost:3000',
+    ],
+    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+    allowedHeaders: '*',
+  })
+);
+
+console.log('hello');
+
+// app.use(cors())
+
+app.options('*', cors());
 app.use(express.json());
 
 mongoose.connect(config.MONGODB_URI);
@@ -44,9 +59,13 @@ app.get('/', async (req, res) => {
 //   }
 // });
 
+app.get('/ping', (req, res) => {
+  res.send('ping');
+});
+
 const PORT = process.env.PORT || 3001;
 
-console.log(PORT)
+console.log(PORT);
 
 app.listen(PORT, () => {
   console.log(`server running on port: ${PORT}`);
