@@ -18,7 +18,9 @@ const FormTask = () => {
 
     //set the form to which the user has to conjugate to
     dispatch(taskFormReducer(form));
+    console.log('form: ', form);
     //set the correct answer that the user has to input
+    console.log('correct answer word: ',correctAnswerWord);
     dispatch(correctAnswerReducer(correctAnswerWord));
     // console.log('taskFormReducer: ', form);
     // console.log('correctAnswerReducer: ', correctAnswerWord);

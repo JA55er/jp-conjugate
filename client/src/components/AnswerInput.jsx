@@ -71,6 +71,7 @@ const AnswerInput = () => {
       } else {
         //changes verb to conjugate. nulls input. changes to input phase
         dispatch(taskWordReducer(loadTaskWord));
+        console.log('task word: ', loadTaskWord);
         setAnswer('');
         dispatch(resultPhaseReducer(false));
       }

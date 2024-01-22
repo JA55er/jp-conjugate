@@ -3,7 +3,8 @@ import taskReducer from './reducers/taskSlice';
 import optionsReducer from './reducers/optionsSlice';
 import scoreReducer from './reducers/scoreSlice';
 
-const store = configureStore({
+
+export const store = configureStore({
   reducer: {
     options: optionsReducer,
     score: scoreReducer,
@@ -11,4 +12,5 @@ const store = configureStore({
   },
 });
 
-export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
