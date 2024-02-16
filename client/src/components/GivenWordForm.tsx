@@ -2,7 +2,7 @@ import React from 'react';
 // import { useAppSelector } from '../store';
 // import { useSelector } from 'react-redux';
 import { useAppSelector } from '../hooks';
-
+import { RootState } from '../store';
 
 interface TaskWordActionPayload {
   _id: string;
@@ -17,7 +17,7 @@ interface TaskWordActionPayload {
 //displays the class of the verb
 const GivenWordForm = () => {
   const taskWord = useAppSelector(
-    (state) => state.answer.taskWord as TaskWordActionPayload
+    (state: RootState) => state.answer.taskWord as TaskWordActionPayload
   );
   // const taskWord = useSelector((state) => state.answer.taskWord);
 

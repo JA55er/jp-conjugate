@@ -16,7 +16,7 @@ const initialState: TaskState = {
   taskForm: '',
 };
 
-interface TaskWordActionPayload {
+export interface TaskWordActionPayload {
   _id: string;
   japanese: string;
   hiraganaReading: string;

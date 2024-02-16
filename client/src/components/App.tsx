@@ -11,15 +11,17 @@ import { taskWordReducer } from '../reducers/taskSlice';
 import getVerb from '../api/getVerb';
 // import 'typeface-roboto';
 import '../styles/index.css';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../hooks';
 
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  // const dispatch = useDispatch();
 
   //loads initial verb to conjugate
   useEffect(() => {
     loadWord();
-  }, []); // eslint-disable-line
+  }, []);
 
   
   const loadWord = async () => {

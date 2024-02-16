@@ -44,10 +44,12 @@ export const getCorrectAnswer = (options, taskWord) => {
   //adds additional conjugation forms to the conjugation array
   conjArr = addForm(conjArr, taskWord);
 
+  // console.log('all forms: ', conjArr);
+
   //puts the selected forms into an array
   const selectedFormsArr = selectedForms.trim().split(' ');
 
-  console.log('selectedFormsArr: ', selectedFormsArr);
+  // console.log('selectedFormsArr: ', selectedFormsArr);
 
   //an array for all the conjugated forms
   const allForms = [];

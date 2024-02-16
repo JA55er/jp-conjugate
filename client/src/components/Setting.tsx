@@ -1,11 +1,24 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { optionsActions } from '../reducers/optionsSlice';
+// import { useDispatch } from 'react-redux';
+import { OptionsState, optionsActions } from '../reducers/optionsSlice';
+import { useAppDispatch } from '../hooks';
+
+export interface SettingProps {
+  settingName: keyof OptionsState;
+  settingTitle: string;
+}
 
 //setting for changing possible task word conjugation forms
-const Setting = ({ settingName, settingTitle }) => {
-  console.log(settingName, settingTitle);
-  const dispatch = useDispatch();
+const Setting = ({ settingName, settingTitle }: SettingProps) => {
+  // console.log(
+  //   'settingname: ',
+  //   settingName,
+  //   typeof settingName,
+  //   'setting title: ',
+  //   settingTitle
+  // );
+  const dispatch = useAppDispatch();
+  // const dispatch = useDispatch();
 
   return (
     <li>

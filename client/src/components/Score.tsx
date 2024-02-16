@@ -3,11 +3,12 @@ import React from 'react';
 // import { useAppSelector } from '../store';
 
 import { useAppSelector } from '../hooks';
+import { RootState } from '../store';
 
 //displays the user score
 const Score = () => {
   const { correctAnswers, incorrectAnswers, answerRatio } = useAppSelector(
-    (state) => state.score
+    (state: RootState) => state.score
   );
   // const { correctAnswers, incorrectAnswers, answerRatio } = useSelector(
   //   (state) => state.score
