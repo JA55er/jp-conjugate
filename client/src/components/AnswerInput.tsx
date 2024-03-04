@@ -27,9 +27,8 @@ const AnswerInput = () => {
   const [answer, setAnswer] = useState('');
 
   //word for conjugation
-  const [loadTaskWord, setLoadTaskWord] = useState<TaskWordActionPayload | {}>(
-    {}
-  );
+  const [loadTaskWord, setLoadTaskWord] =
+    useState<TaskWordActionPayload | null>(null);
 
   // const inputRef = useRef(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -43,6 +42,13 @@ const AnswerInput = () => {
       setAnswer(wana);
     }
   }, [answer]);
+
+  useEffect(() => {
+    const getInitialVerb = async () => {
+      setLoadTaskWord(await getVerb());
+    };
+    getInitialVerb();
+  }, []);
 
   //forces focus on input field on non touch devices
   // const isTouchDevice =
@@ -64,6 +70,8 @@ const AnswerInput = () => {
     setAnswer(e.target.value);
   };
 
+  let newVerb;
+
   const onInputSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!answer) {
@@ -77,17 +85,22 @@ const AnswerInput = () => {
         //changes phase to show result
         dispatch(resultPhaseReducer(true));
         //gets new verb and checks if it's not the same as the last
-        let newVerb = await getVerb();
-        if (newVerb === loadTaskWord) {
-          newVerb = await getVerb();
-        }
-        setLoadTaskWord(newVerb as TaskWordActionPayload);
+        // let newVerb = await getVerb();
+        // if (loadTaskWord && newVerb.japanese === loadTaskWord.japanese) {
+        //   newVerb = await getVerb();
+        // }
       } else {
         //changes verb to conjugate. nulls input. changes to input phase
+        // console.log('taskword: ', loadTaskWord);
+
         dispatch(taskWordReducer(loadTaskWord as TaskWordActionPayload));
-        console.log('task word: ', loadTaskWord);
+        // console.log('task word: ', loadTaskWord);
         setAnswer('');
         dispatch(resultPhaseReducer(false));
+        do {
+          newVerb = await getVerb();
+        } while (loadTaskWord && newVerb.japanese === loadTaskWord.japanese);
+        setLoadTaskWord(newVerb as TaskWordActionPayload);
       }
     }
   };
@@ -111,6 +124,7 @@ const AnswerInput = () => {
         autoFocus
         spellCheck='false'
         autoComplete='off'
+        aria-label='answer'
         onBlur={() => {
           focus();
         }}

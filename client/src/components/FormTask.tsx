@@ -29,7 +29,7 @@ const FormTask = () => {
   //   return [state.options, state.answer.taskWord, state.answer.taskForm];
   // });
 
-  console.log('taskword: ', taskWord);
+  // console.log('taskword: ', taskWord);
 
   const changeForm = () => {
     //get the correct answer that the user has to input based on task word and options

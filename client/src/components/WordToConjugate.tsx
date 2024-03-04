@@ -1,18 +1,19 @@
 import React from 'react';
 import { useAppSelector } from '../hooks';
 import { RootState } from '../store';
+import { TaskWordActionPayload } from '../reducers/taskSlice';
 
 // import { useSelector } from 'react-redux';
 
-interface TaskWordActionPayload {
-  _id: string;
-  japanese: string;
-  hiraganaReading: string;
-  romanization: string;
-  englishTranslation: string;
-  verbClass: number;
-  transitiveIntransitive: string;
-}
+// interface TaskWordActionPayload {
+//   _id: string;
+//   japanese: string;
+//   hiraganaReading: string;
+//   romanization: string;
+//   englishTranslation: string;
+//   verbClass: number;
+//   transitiveIntransitive: string;
+// }
 
 //the task word that the user has to conjugate
 const WordToConjugate = () => {

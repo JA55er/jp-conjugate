@@ -16,7 +16,7 @@ const app = express();
 //   })
 // );
 
-app.use(cors())
+app.use(cors());
 
 console.log('hello');
 
@@ -28,8 +28,12 @@ app.use(express.json());
 mongoose.connect(config.MONGODB_URI);
 
 const VerbSchema = new mongoose.Schema({
-  word: String,
-  type: String,
+  japanese: String,
+  hiraganaReading: String,
+  romanization: String,
+  englishTranslation: String,
+  verbClass: Number,
+  transitiveIntransitive: String,
 });
 
 const Verb = mongoose.model('Verb', VerbSchema);

@@ -3,16 +3,17 @@ import React from 'react';
 // import { useSelector } from 'react-redux';
 import { useAppSelector } from '../hooks';
 import { RootState } from '../store';
+import { TaskWordActionPayload } from '../reducers/taskSlice';
 
-interface TaskWordActionPayload {
-  _id: string;
-  japanese: string;
-  hiraganaReading: string;
-  romanization: string;
-  englishTranslation: string;
-  verbClass: number;
-  transitiveIntransitive: string;
-}
+// interface TaskWordActionPayload {
+//   _id: string;
+//   japanese: string;
+//   hiraganaReading: string;
+//   romanization: string;
+//   englishTranslation: string;
+//   verbClass: number;
+//   transitiveIntransitive: string;
+// }
 
 //displays the class of the verb
 const GivenWordForm = () => {

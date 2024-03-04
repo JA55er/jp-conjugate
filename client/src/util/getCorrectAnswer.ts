@@ -22,8 +22,9 @@ export const getCorrectAnswer = (
   options: OptionsInterface,
   taskWord: TaskWordActionPayload
 ) => {
-  console.log('aaa', options);
 
+  // console.log(options);
+  
   //set the conjArr with all the conjugation forms based on the verb class
   //of the task word
   let conjArr = [];
@@ -41,7 +42,7 @@ export const getCorrectAnswer = (
 
   let sOptions: OptionsInterface = { ...options };
 
-  console.log('sOptions', sOptions);
+  // console.log('sOptions', sOptions);
 
   //checks if all the conjugation options are set to false.
   //if so sets all their values to true making all conjugation
@@ -61,7 +62,7 @@ export const getCorrectAnswer = (
     });
   }
 
-  console.log(sOptions);
+  // console.log(sOptions);
 
   //checks which options are selected and puts those that are into a string
   Object.entries(sOptions).forEach(([key, value]) => {
