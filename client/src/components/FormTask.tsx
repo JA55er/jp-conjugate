@@ -42,6 +42,8 @@ const FormTask = () => {
     //set the correct answer that the user has to input
     // console.log('correct answer word: ', correctAnswerWord);
     if (correctAnswerWord) {
+      console.log(correctAnswerWord);
+      
       dispatch(correctAnswerReducer(correctAnswerWord));
     }
     // console.log('taskFormReducer: ', form);
