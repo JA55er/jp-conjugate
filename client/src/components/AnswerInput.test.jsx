@@ -13,7 +13,7 @@ describe('AnswerInput', () => {
       </Provider>
     );
     const inputElement = screen.getByRole('textbox');
-    expect(inputElement).toBeDefined;
+    expect(inputElement).toBeDefined();
   });
   it('converts to kana correctly', () => {
     render(
